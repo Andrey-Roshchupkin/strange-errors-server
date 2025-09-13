@@ -7,6 +7,8 @@ import (
 
 	"strange-errors-server/internal/middleware"
 	"strange-errors-server/internal/models"
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 // Router handles HTTP routing
@@ -46,7 +48,18 @@ func (r *Router) Handler(w http.ResponseWriter, req *http.Request) {
 		}
 	case "/api/health-check":
 		r.handler.HealthCheckHandler(w, req)
+	case "/api/user":
+		if req.Method == "POST" {
+			r.handler.CreateUserHandler(w, req)
+		} else {
+			http.Error(w, "Method not allowed", 405)
+		}
 	default:
+		// Check if it's a Swagger request
+		if len(req.URL.Path) >= 8 && req.URL.Path[:8] == "/swagger" {
+			httpSwagger.WrapHandler(w, req)
+			return
+		}
 		// Check if it's a delete request for specific article
 		if len(req.URL.Path) > 12 && req.URL.Path[:12] == "/api/article/" && req.Method == "DELETE" {
 			r.handler.DeleteArticleHandler(w, req)

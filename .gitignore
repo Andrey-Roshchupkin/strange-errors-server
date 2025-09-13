@@ -1,2 +1,9 @@
+# Database file
 database.db
+
+# Compiled binary
 strange-errors-server
+
+# Go build artifacts
+*.test
+*.out

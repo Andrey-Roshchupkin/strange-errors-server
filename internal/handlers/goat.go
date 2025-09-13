@@ -21,6 +21,16 @@ func NewGoatHandler() *GoatHandler {
 }
 
 // Handle handles the GOAT method with progressive annoyance
+// @Summary GOAT method (Custom HTTP Method)
+// @Description Demonstrates progressive server behavior with a custom GOAT HTTP method. Use: curl -X GOAT http://localhost:3000/api/health-check
+// @Tags health
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.GoatResponse "First call - Happy GOAT"
+// @Success 400 {object} models.GoatResponse "Second/Third call - Annoyed/Upset GOAT"
+// @Success 500 {object} models.GoatResponse "Fourth call - Enraged GOAT"
+// @Success 503 {object} models.GoatResponse "Fifth call - Fatal GOAT"
+// @Router /api/health-check [post]
 func (gh *GoatHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	gh.callCount++
 	log.Printf("🐐 GOAT call #%d", gh.callCount)

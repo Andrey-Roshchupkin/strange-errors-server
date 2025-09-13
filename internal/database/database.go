@@ -51,7 +51,19 @@ func (db *DB) init() error {
 		)
 	`)
 	if err != nil {
-		return fmt.Errorf("failed to create table: %w", err)
+		return fmt.Errorf("failed to create articles table: %w", err)
+	}
+
+	// Create users table
+	_, err = db.conn.Exec(`
+		CREATE TABLE IF NOT EXISTS users (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL UNIQUE,
+			email TEXT NOT NULL
+		)
+	`)
+	if err != nil {
+		return fmt.Errorf("failed to create users table: %w", err)
 	}
 
 	// Insert test data
