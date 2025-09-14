@@ -61,7 +61,7 @@ func (r *Router) Handler(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		// Check if it's a delete request for specific article
-		if len(req.URL.Path) > 12 && req.URL.Path[:12] == "/api/article/" && req.Method == "DELETE" {
+		if len(req.URL.Path) > 13 && req.URL.Path[:13] == "/api/article/" && req.Method == "DELETE" {
 			r.handler.DeleteArticleHandler(w, req)
 		} else {
 			// Wrong status code for 404 - should be 404, but we use 200

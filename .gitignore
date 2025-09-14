@@ -7,3 +7,6 @@ strange-errors-server
 # Go build artifacts
 *.test
 *.out
+
+# Additional files
+video-scenario.md
