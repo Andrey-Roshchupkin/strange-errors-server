@@ -190,7 +190,7 @@ func (h *Handler) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param user body models.User true "User data (name and email)"
+// @Param user body models.CreateUserRequest true "User data (name and email required)"
 // @Success 201 {object} models.User "User created successfully"
 // @Failure 400 {object} models.APIResponse "User already exists or invalid data"
 // @Failure 500 {object} models.APIResponse "Internal server error (wrong status for invalid email)"
@@ -201,7 +201,7 @@ func (h *Handler) CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var user models.User
+	var user models.CreateUserRequest
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		w.WriteHeader(400)

@@ -26,6 +26,12 @@ type User struct {
 	Email string `json:"email"`
 }
 
+// CreateUserRequest represents the request body for creating a new user
+type CreateUserRequest struct {
+	Name  string `json:"name" binding:"required"`
+	Email string `json:"email" binding:"required"`
+}
+
 // APIResponse represents a generic API response
 type APIResponse struct {
 	Message string     `json:"message"`

@@ -1,4 +1,4 @@
-# The Double Absence of Errors Fallacy: Introducing the New HTTP Method GOAT
+# The Absence of Errors Double Fallacy: Introducing the New HTTP Method GOAT
 
 ## Introduction: The Interview Paradox
 
@@ -24,7 +24,7 @@ To demonstrate these concepts in action, I've prepared a special demonstration s
 
 #### **Users API (Idempotent POST)**
 
-- `POST /api/user` - Create a new user (returns error if user already exists)
+- `POST /api/user` - Create a new user with email (returns error if user already exists)
 
 #### **Health Check**
 
@@ -81,15 +81,15 @@ The users endpoint breaks the HTTP rule to follow business logic - it prevents d
 ```bash
 # First call - creates user
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"name":"Alice"}' \
+  -d '{"name":"Alice","email":"alice@example.com"}' \
   http://localhost:3000/api/user
 
 # HTTP/1.1 201 Created
-# Response: {"id":1,"name":"Alice"}
+# Response: {"id":1,"name":"Alice","email":"alice@example.com"}
 
 # Second call with same data - returns error
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"name":"Alice"}' \
+  -d '{"name":"Alice","email":"alice@example.com"}' \
   http://localhost:3000/api/user
 
 # HTTP/1.1 400 Bad Request
